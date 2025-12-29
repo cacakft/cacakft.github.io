@@ -215,7 +215,7 @@ function checkTestCode() {
     closeTest();
     showContent('test'); // 👉 a MEGLÉVŐ test tartalom jelenik meg
   } else {
-    document.getElementById("testError").innerText = "Hibás kód! <br>  (Hanem vagy 5.res ne próbálkozz!)";
+    document.getElementById("testError").innerText = "Hibás kód! (Hanem vagy 5.res ne próbálkozz!)";
   }
 }
 </script>
@@ -225,7 +225,7 @@ function checkTestCode() {
 <div id="testModal" class="modal">
   <div class="modal-content">
     <h2>Jelszó szükséges</h2>
-    <input type="password" id="testCode" placeholder="Add meg a kódot">
+    <input type="password" id="testCode" placeholder="Add meg a jelszót">
     <br><br>
     <button onclick="checkTestCode()">Belépés</button>
     <button onclick="closeTest()">Mégse</button>
