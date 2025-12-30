@@ -142,7 +142,7 @@ body {
   <h2>Hírek:<br>Moziverzum: 2026-ban sok film várható és kiadjuk a Mikiegérvér és pusztulat javító verzióját! <br> Lottózó: innetől mozijegyet és valamikor nagyon jó cuccokat is lehet nyerni! <br> További
   híreinkért olvassák el Breakingnews! újságunkat.</h2>.<br></h2>
   <p>
-   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>A weboldal fenntartója és alkotója: Stefkó Tettamanti Marcell <br> Elérhetőség:<br>Email: tettamantimarcell@gmail.com <br> Telefonszám: +36 30 790 9 <br> Üzemelteti: a Caca Kft.
+   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>A weboldal fenntartója és alkotója: Stefkó Tettamanti Marcell <br> Elérhetőség:<br>Email: tettamantimarcell@gmail.com <br> Telefonszám: +36 30 790 3409 <br> Üzemelteti: a Caca Kft. 
   </p>
 </div>
 
@@ -181,9 +181,31 @@ body {
 
 
 <div id="test" class="content active">
-  <h2>Ez a menü pont jelenleg nem áll rendelkezésedre. </h2>
+  <h2>.</h2>
 
-  
+
+   <input 
+    type="text" 
+    id="searchInput"
+    placeholder="Keresés a tartalomban..."
+    onkeyup="searchTestContent()"
+    style="
+      padding:10px;
+      width:260px;
+      font-size:16px;
+      margin-bottom:15px;
+      border-radius:6px;
+      border:1px solid #ccc;
+    "
+  >
+
+  <!--  KERESHETŐ LISTA -->
+  <ul id="testList" style="list-style:none; padding-left:0;">
+    <li>Cacacrosoft üdvözöljük!</li>
+   
+  </ul>
+
+<h3 id="videoTitle">Cacacrosoft üdvözöljük!</h3>  
 <video width="40%" height="auto" controls poster="borito-kep.jpg">
     <source id="videoSource" src="" type="video/mp4">
     A böngésződ nem támogatja a videó lejátszását.
@@ -256,6 +278,22 @@ function checkTestCode() {
     // Frissítjük a videót, hogy az új forrást töltse be
     sourceElement.parentElement.load();
 </script>
+
+  <script>
+function searchTestContent() {
+  let input = document.getElementById("searchInput").value.toLowerCase();
+  let items = document.querySelectorAll("#testList li");
+
+  items.forEach(item => {
+    if (item.innerText.toLowerCase().includes(input)) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
+}
+</script>
+
 
   
 </body>
