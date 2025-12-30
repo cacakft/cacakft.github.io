@@ -184,10 +184,11 @@ body {
   <h2>Ez a menü pont jelenleg nem áll rendelkezésedre. </h2>
 
   
-    <video width="40%" height="auto" controls poster="borito-kep.jpg">
-        <source src="https://nodes-recommendations-samples-plain.trycloudflare.com/cacaudv.mp4" type="video/mp4">
-        A böngész?d nem támogatja a videó lejátszását.
-    </video>   
+<video width="40%" height="auto" controls poster="borito-kep.jpg">
+    <source id="videoSource" src="" type="video/mp4">
+    A böngésződ nem támogatja a videó lejátszását.
+</video>
+ 
 
   
 <script>
@@ -237,6 +238,23 @@ function checkTestCode() {
     <p id="testError" style="color:red;"></p>
   </div>
 </div>
+
+
+<!-- itt kell módosítani a baseURL-t ha a servert újraindítottad -->
+  <script>
+    // Itt állíthatod be a változó értékét (az alap URL-t)
+    var baseUrl = "https://nodes-recommendations-samples-plain.trycloudflare.com";
+    
+    // A konkrét fájlnév
+    var fileName = "cacaudv.mp4";
+
+    // Összeillesztjük és beállítjuk a forrást
+    var sourceElement = document.getElementById('videoSource');
+    sourceElement.src = baseUrl + "/" + fileName;
+
+    // Frissítjük a videót, hogy az új forrást töltse be
+    sourceElement.parentElement.load();
+</script>
 
   
 </body>
