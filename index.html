@@ -120,7 +120,7 @@ body {
   <a onclick="showContent('hirek')" id="hirekLink">Hírek</a>
   <a onclick="showContent('vibercsoportok')" id="vibercsoportokLink">Viber csoportok</a>
 <a onclick="showContent('cardok')" id="cardokLink">Cardok</a>
-  <a onclick="showContent('testek')" id="testLink">Test</a> 
+  <a onclick="openTestProtected()" id="testLink">test</a> 
 </div>
 
 <div id="learazasok" class="content active">
@@ -180,32 +180,10 @@ body {
 
 
 
-<div id="5.r toube" class="content active">
-  <h2>.</h2>
+<div id="test" class="content active">
+  <h2>Ez a menü pont jelenleg nem áll rendelkezésedre. </h2>
 
-
-   <input 
-    type="text" 
-    id="searchInput"
-    placeholder="Keresés a tartalomban..."
-    onkeyup="searchTestContent()"
-    style="
-      padding:10px;
-      width:260px;
-      font-size:16px;
-      margin-bottom:15px;
-      border-radius:6px;
-      border:1px solid #ccc;
-    "
-  >
-
-  <!--  KERESHETŐ LISTA -->
-  <ul id="testList" style="list-style:none; padding-left:0;">
-    <li>Cacacrosoft üdvözöljük!</li>
-   
-  </ul>
-
-<h3 id="videoTitle">Cacacrosoft üdvözöljük!</h3>  
+  
 <video width="40%" height="auto" controls poster="borito-kep.jpg">
     <source id="videoSource" src="" type="video/mp4">
     A böngésződ nem támogatja a videó lejátszását.
@@ -241,9 +219,9 @@ function checkTestCode() {
 
   if (input === TEST_CODE) {
     closeTest();
-    showContent('Test'); // 👉 a MEGLÉVŐ test tartalom jelenik meg
+    showContent('test'); // 👉 a MEGLÉVŐ test tartalom jelenik meg
   } else {
-    document.getElementById("testError").innerText = "Hibás kód! (Hanem vagy 5-es, ne próbálkozz!)";
+    document.getElementById("testError").innerText = "Hibás kód! (Hanem vagy 5.res ne próbálkozz!)";
   }
 }
 </script>
@@ -279,22 +257,6 @@ function checkTestCode() {
     sourceElement.parentElement.load();
 </script>
 
-  <script>
-function searchTestContent() {
-  let input = document.getElementById("searchInput").value.toLowerCase();
-  let items = document.querySelectorAll("#testList li");
-
-  items.forEach(item => {
-    if (item.innerText.toLowerCase().includes(input)) {
-      item.style.display = "block";
-    } else {
-      item.style.display = "none";
-    }
-  });
-}
-</script>
-
-
   
 </body>
-</html>
+</html> test
