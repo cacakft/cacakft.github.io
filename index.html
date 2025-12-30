@@ -135,58 +135,58 @@
   <a onclick="showContent('hirek')" id="hirekLink">Hírek</a>
   <a onclick="showContent('vibercsoportok')" id="vibercsoportokLink">Viber csoportok</a>
   <a onclick="showContent('cardok')" id="cardokLink">Cardok</a>
-  <a onclick="openTestProtected()" id="testLink">5.r toube</a> 
+  <a onclick="openTestProtected()" id="testLink">Test</a>
 </div>
 
 <div id="learazasok" class="content active">
   <h2>Üdvözli a Caca Kft.<br>Most caca cardra 25% kedvezmény!<br>Ezért csak 3 üveg lesz januárban! </h2>
 
   <div class="video-wrapper">
-    <iframe 
-      src="https://www.youtube.com/embed/IHv1Mp13ERI" 
-      title="Hi!Caca" 
-      frameborder="0" 
+    <iframe
+      src="https://www.youtube.com/embed/IHv1Mp13ERI"
+      title="Hi!Caca"
+      frameborder="0"
       allowfullscreen>
     </iframe>
   </div>
 </div>
 
 <div id="hirek" class="content">
-  <h2>Hírek:<br>Moziverzum: 2026-ban sok film várható és kiadjuk a Mikiegérvér és pusztulat javító verzióját! <br> 
-  Lottózó: innetől mozijegyet és valamikor nagyon jó cuccokat is lehet nyerni! <br> 
+  <h2>Hírek:<br>Moziverzum: 2026-ban sok film várható és kiadjuk a Mikiegérvér és pusztulat javító verzióját! <br>
+  Lottózó: innetl mozijegyet és valamikor nagyon jó cuccokat is lehet nyerni! <br>
   További híreinkért olvassák el Breakingnews! újságunkat.</h2>
-  
+
   <p style="margin-top: 300px;">
-    A weboldal fenntartója és alkotója: Stefkó Soma és Tettamanti Marcell <br> 
-    Email: tettamantimarcell@gmail.com <br> 
-    Telefonszám: +36 30 790 3409 <br> 
-    Üzemelteti: a Caca Kft. 
+    A weboldal fenntartója és alkotója: Stefkó Soma és Tettamanti Marcell <br>
+    Email: tettamantimarcell@gmail.com <br>
+    Telefonszám: +36 30 790 3409 <br>
+    Üzemelteti: a Caca Kft.
   </p>
 </div>
 
 <div id="vibercsoportok" class="content">
   <h2>Viber csoport</h2>
-  <a href="https://invite.viber.com/?g2=AQAsPNwakIHg%2BVXE9FrFTDgbD6Hs%2BC5saVTbiIJJx%2BgNaCuY955QP%2BuoN7T9veGx" 
-     target="_blank" 
+  <a href="https://invite.viber.com/?g2=AQAsPNwakIHg%2BVXE9FrFTDgbD6Hs%2BC5saVTbiIJJx%2BgNaCuY955QP%2BuoN7T9veGx"
+     target="_blank"
      style="display:inline-block; padding:15px 25px; background:#7360f2; color:white; text-decoration:none; border-radius:8px; font-size:18px; margin-top:10px;">
-     👉 Csatlakozás a Viber csoporthoz
+      Csatlakozás a Viber csoporthoz
   </a>
 </div>
 
 <div id="cardok" class="content">
   <div style="margin-top: 50px;">
-    <h2>Cacacard 3 palack/hó &nbsp;&nbsp;&nbsp; Lottózócard </h2>
-    <img src="caca club card.jpg" alt="caca card" width="500"> 
+    <h2>Cacacard 3 palack/hó &nbsp;&nbsp;&nbsp; Lottózócard (nem elérhet)</h2>
+    <img src="caca club card.jpg" alt="caca card" width="500">
     <img src="lotozo.jpg" alt="lottozo" width="500">
   </div>
 </div>
 
 <div id="test" class="content">
-  <h2>Üdvözli az 5.r toube! </h2>
+  <h2>Ez a menü pont jelenleg nem áll rendelkezésedre. </h2>
 
-  
-   <input 
-    type="text" 
+
+   <input
+    type="text"
     id="searchInput"
     placeholder="Keresés a tartalomban..."
     onkeyup="searchTestContent()"
@@ -200,17 +200,17 @@
     "
   >
 <br><br>
-  
-  <video width="40%" height="auto" controls poster="borito-kep.jpg">
+
+  <video width="60%" height="auto" controls poster="borito-kep.jpg">
       <source id="videoSource" src="" type="video/mp4">
-      A böngésződ nem támogatja a videó lejátszását.
+      A böngészd nem támogatja a videó lejátszását.
   </video>
 </div>
 
 <div id="testModal" class="modal">
   <div class="modal-content">
     <h2>Jelszó szükséges</h2>
-    <input type="password" id="testCode" placeholder="Add meg a jelszót" 
+    <input type="password" id="testCode" placeholder="Add meg a jelszót"
            onkeydown="if(event.key === 'Enter') checkTestCode()">
     <br><br>
     <button onclick="checkTestCode()">Belépés</button>
@@ -239,7 +239,7 @@
   // Modal megnyitása
   function openTestProtected() {
     document.getElementById("testModal").style.display = "block";
-    // Automatikusan belefókuszál a mezőbe
+    // Automatikusan belefókuszál a mezbe
     setTimeout(() => {
         document.getElementById("testCode").focus();
     }, 100);
@@ -252,13 +252,13 @@
     document.getElementById("testCode").value = "";
   }
 
-  // Jelszó ellenőrzése
+  // Jelszó ellenrzése
   function checkTestCode() {
     const input = document.getElementById("testCode").value;
     if (input === TEST_CODE) {
       closeTest();
       showContent('test');
-      
+
       // Videó betöltése csak sikeres belépéskor (hogy ne terhelje a szervert feleslegesen)
       var sourceElement = document.getElementById('videoSource');
       if(sourceElement.src === "" || sourceElement.src === window.location.href) {
@@ -298,6 +298,6 @@ function showContent(sectionId) {
 }
 </script>
 
-  
+
 </body>
 </html>
