@@ -157,7 +157,7 @@
   További híreinkért olvassák el Breakingnews! újságunkat.</h2>
   
   <p style="margin-top: 300px;">
-    A weboldal fenntartója és alkotója: Stefkó Tettamanti Marcell <br> 
+    A weboldal fenntartója és alkotója: Stefkó Soma és Tettamanti Marcell <br> 
     Email: tettamantimarcell@gmail.com <br> 
     Telefonszám: +36 30 790 3409 <br> 
     Üzemelteti: a Caca Kft. 
@@ -183,6 +183,23 @@
 
 <div id="test" class="content">
   <h2>Ez a menü pont jelenleg nem áll rendelkezésedre. </h2>
+
+  
+   <input 
+    type="text" 
+    id="searchInput"
+    placeholder="Keresés a tartalomban..."
+    onkeyup="searchTestContent()"
+    style="
+      padding:10px;
+      width:260px;
+      font-size:16px;
+      margin-bottom:15px;
+      border-radius:6px;
+      border:1px solid #ccc;
+    "
+  >
+
   
   <video width="60%" height="auto" controls poster="borito-kep.jpg">
       <source id="videoSource" src="" type="video/mp4">
@@ -254,5 +271,21 @@
   }
 </script>
 
+
+  <script>
+function searchTestContent() {
+  let input = document.getElementById("searchInput").value.toLowerCase();
+  let items = document.querySelectorAll("#testList li");
+
+  items.forEach(item => {
+    if (item.innerText.toLowerCase().includes(input)) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
+}
+</script>
+  
 </body>
 </html>
