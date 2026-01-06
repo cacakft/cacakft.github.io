@@ -135,7 +135,7 @@
   <a onclick="showContent('hirek')" id="hirekLink">Hírek</a>
   <a onclick="showContent('vibercsoportok')" id="vibercsoportokLink">Viber csoportok</a>
   <a onclick="showContent('cardok')" id="cardokLink">Cardok</a>
-  <a onclick="openTestProtected()" id="testLink">5.r toube</a>
+  <a onclick="openTestProtected()" id="testLink"> Suli toube</a>
 </div>
 
 <div id="learazasok" class="content active">
@@ -182,141 +182,123 @@
 </div>
 
 <div id="test" class="content">
-  <h2>Üdvözli az 5.r toube <br> Rendszergazda:Tettamanti Marcell <br> Üzemeltetti a cacacrosoft! </h2>
 
 
-   <input
-    type="text"
-    id="searchInput"
-    placeholder="Keresés a tartalomban..."
-    onkeyup="searchTestContent()"
-    style="
-      padding:10px;
-      width:260px;
-      font-size:16px;
-      margin-bottom:15px;
-      border-radius:6px;
-      border:1px solid #ccc;
-    "
-  >
-<br><br>
 
-  <!-- Itt lesznek a videok -->
-  <video width="100%" height="auto" controls poster="borito-kep.jpg">
-      <source id="videoSource1" src="" type="video/mp4">
-      A böngészd nem támogatja a videó lejátszását.
-  </video>
+
+ <img
+  src="https://raw.githubusercontent.com/cacacrosoft/cacacrosoft.github.io/main/Slide2.jpg"
+  style="width:200px;"
+>
+
+
+  <h2>Üdvözli az 5.r toube!</h2>
+
+
+  <input type="text" id="searchInput" placeholder="Keresés a videók között..." onkeyup="filterFiles()" style="padding:6px; width:50%; max-width:200px; border-radius:6px;">
+
+    <a href="https://docs.google.com/document/d/1uj66DKMbP0QW1asK968pAYhCtUSDHBqolRVgQgJKuWI/edit?usp=sharing" target="_blank" style="display:inline-block; padding:5px 10px; background:#138a0f; color:white; text-decoration:none; border-radius:8px;">Segitség</a>
+
+  <div id="fileListContainer">
+    <h3>Elérhető videók a szerveren:</h3>
+    <div id="dynamicFileList">Betöltés...</div>
+  </div>
 </div>
 
-  <video width="100%" height="auto" controls poster="
-Shotcut_00_00_23_100.png">
-      <source id="videoSource2" src="" type="video/mp4">
-      A böngészd nem támogatja a videó lejátszását.
-  </video>
-</div>
-  
 <div id="testModal" class="modal">
   <div class="modal-content">
-    <h2>Jelszó szükséges</h2>
-    <input type="password" id="testCode" placeholder="Add meg a jelszót"
-           onkeydown="if(event.key === 'Enter') checkTestCode()">
+    <h2>Kód szükséges</h2>
+    <input type="password" id="testCode" placeholder="Írd ide!" onkeydown="if(event.key === 'Enter') checkTestCode()">
     <br><br>
-    <button onclick="checkTestCode()">Belépés</button>
-    <button onclick="closeTest()">Mégse</button>
-    <p id="testError" style="color:red; margin-top:10px;"></p>
+    <button onclick="checkTestCode()" style="background:#F54927; color:white; padding:10px 20px; border:none; border-radius:5px;">Ellenőrzés</button>
+    <button onclick="closeTest()">Próbálkozás késöbb</button>
+    <p id="testError" style="color:red;"></p>
   </div>
 </div>
 
 <script>
-  // Alap URL a videóhoz
-  var baseUrl = "https://gallery-bow-identity-physically.trycloudflare.com/";
-  var fileName1 = "0-02-05-0387bbb3bf2bfc0a3fbf9ed74a0206abb97758c0a8c28a4a64447671b095be6a_1ec80c26058d72.mp4";
-  var fileName2 = "ujev_a_horror_hazban.mp4";
+  const TEST_CODE = "caca123";
+  // A Cloudflare szervered címe (ügyelj a végén a per jelre)
+  const serverUrl = "https://gallery-bow-identity-physically.trycloudflare.com/";
 
-  // Tartalom váltó funkció
   function showContent(sectionId) {
     document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
     document.querySelectorAll('.topnav a').forEach(l => l.classList.remove('active'));
-
     document.getElementById(sectionId).classList.add('active');
-    const link = document.getElementById(sectionId + 'Link');
-    if(link) link.classList.add('active');
+    if(document.getElementById(sectionId + 'Link')) {
+        document.getElementById(sectionId + 'Link').classList.add('active');
+    }
   }
 
-  const TEST_CODE = "caca123";
-
-  // Modal megnyitása
   function openTestProtected() {
     document.getElementById("testModal").style.display = "block";
-    // Automatikusan belefókuszál a mezbe
-    setTimeout(() => {
-        document.getElementById("testCode").focus();
-    }, 100);
+    setTimeout(() => { document.getElementById("testCode").focus(); }, 100);
   }
 
-  // Modal bezárása
   function closeTest() {
     document.getElementById("testModal").style.display = "none";
-    document.getElementById("testError").innerText = "";
     document.getElementById("testCode").value = "";
   }
 
-  // Jelszó ellenrzése
   function checkTestCode() {
     const input = document.getElementById("testCode").value;
     if (input === TEST_CODE) {
       closeTest();
       showContent('test');
-
-      // Videó betöltése csak sikeres belépéskor (hogy ne terhelje a szervert feleslegesen)
-      // innentol copy
-      var sourceElement = document.getElementById('videoSource1'); 
-      if(sourceElement.src === "" || sourceElement.src === window.location.href) {
-          sourceElement.src = baseUrl + "/" + fileName1; 
-          sourceElement.parentElement.load();
-      } //ez copy idaig
-    
-    
-      var sourceElement = document.getElementById('videoSource2'); 
-      if(sourceElement.src === "" || sourceElement.src === window.location.href) {
-          sourceElement.src = baseUrl + "/" + fileName2; 
-          sourceElement.parentElement.load();
-      }
-    }
-    else {
-      document.getElementById("testError").innerText = "Hibás kód! (Ha nem vagy 5.r-es, ne próbálkozz!)";
+      loadFilesFromServer(); // Itt hívjuk meg a listázást
+    } else {
+      document.getElementById("testError").innerText = "Hibáskód";
     }
   }
-</script>   
 
+  // Ez a függvény kéri le a fájlokat
+  async function loadFilesFromServer() {
+    const listElement = document.getElementById("dynamicFileList");
+    try {
+      const response = await fetch(serverUrl);
+      const text = await response.text();
 
+      // Egy ideiglenes elembe tesszük a HTML-t, hogy ki tudjuk nyerni a linkeket
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'text/html');
+      const links = doc.querySelectorAll('a');
 
-  <script>
-function searchTestContent() {
-  let input = document.getElementById("searchInput").value.toLowerCase();
-  let items = document.querySelectorAll("#testList li");
+      listElement.innerHTML = ""; // Alaphelyzetbe állítás
 
-  items.forEach(item => {
-    if (item.innerText.toLowerCase().includes(input)) {
-      item.style.display = "block";
-    } else {
-      item.style.display = "none";
+      let count = 0;
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        // Kiszűrjük a szülőkönyvtár és rendszer linkeket
+        if (href && !href.startsWith('?') && href !== '/' && !href.includes('apache')) 			{
+          const fullUrl = href.startsWith('http') ? href : serverUrl + href;
+          const fileName = link.innerText || href;
+
+          const a = document.createElement('a');
+          a.href = fullUrl;
+          a.className = 'file-item';
+          a.target = '_blank';
+          a.innerText = "▶️" + fileName;
+          listElement.appendChild(a);
+          count++;
+		  }
+      });
+
+      if(count === 0) listElement.innerHTML = "Nem találhatók fájlok.";
+
     }
-  });
-}
+	catch (error) {
+      listElement.innerHTML = "Jelentsd be ezen a számon!";
+      console.error(error);}
+  }
+
+  function filterFiles() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let items = document.querySelectorAll(".file-item");
+    items.forEach(item => {
+      item.style.display = item.innerText.toLowerCase().includes(input) ? "block" : "none";
+    });
+  }
 </script>
-
-
-  <script>
-function showContent(sectionId) {
-  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-  document.querySelectorAll('.topnav a').forEach(l => l.classList.remove('active'));
-
-  document.getElementById(sectionId).classList.add('active');
-  document.getElementById(sectionId + 'Link').classList.add('active');
-}
-</script>
-
 
 </body>
-</html>
+</html>                                                  
