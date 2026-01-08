@@ -13,18 +13,58 @@
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    background-color: #333; /* Tartalék szín, ha a kép nem tölt be */
+    background-color: #333;
+    color: white;
+    text-shadow: 1px 1px 5px black;
   }
 
-  /* MODAL (Jelszó ablak) */
+  .topnav {
+    display: flex;
+    background-color: #333;
+    overflow: hidden;
+    z-index: 10;
+    position: relative;
+  }
+
+  .topnav a {
+    padding: 14px 16px;
+    text-decoration: none;
+    color: #f2f2f2;
+    font-size: 17px;
+    cursor: pointer;
+  }
+
+  .topnav a.active { background-color: #F54927; color: white; }
+  .topnav a:hover { background-color: #ddd; color: black; }
+
+  .content {
+    display: none;
+    padding: 20px;
+  }
+  .content.active { display: block; }
+
+  .video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    max-width: 900px;
+    margin-top: 20px;
+  }
+  .video-wrapper video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .file-item { display: block; margin-bottom: 5px; color: #00ff00; text-decoration: none; }
+  .file-item:hover { text-decoration: underline; }
+
   .modal {
     display: none;
     position: fixed;
     z-index: 3000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
     background: rgba(0,0,0,0.8);
   }
 
@@ -37,97 +77,19 @@
     text-align: center;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-  }
-
-  .modal-content input {
-    padding: 10px;
-    width: 80%;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-  .modal-content button {
-    padding: 10px 20px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: #F54927;
-    color: white;
-    font-weight: bold;
-  }
-
-  /* MENÜ – GÉP NÉZET */
-  .topnav {
-    overflow: hidden;
-    background-color: #333;
-    display: flex;
-  }
-
-  .topnav a {
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-    cursor: pointer;
-  }
-
-  .topnav a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-
-  .topnav a.active {
-    background-color: #F54927;
-    color: white;
-  }
-
-  /* TARTALOM */
-  .content {
-    display: none;
-    padding: 20px;
-    color: white;
-    text-shadow: 1px 1px 5px black;
-  }
-
-  .content.active {
-    display: block;
-  }
-
-  /* YOUTUBE – RESZPONZÍV */
-  .video-wrapper {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 */
-    height: 0;
-    max-width: 900px;
-    margin-top: 20px;
   }
 
-  .video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+  .modal-content input { padding: 10px; width: 80%; margin-bottom: 10px; border-radius:5px; border:1px solid #ccc; }
+  .modal-content button { padding:10px 20px; margin:5px; border:none; border-radius:5px; background:#F54927; color:white; font-weight:bold; cursor:pointer; }
 
-  /* MOBIL NÉZET */
-  @media (max-width: 768px) {
-    .topnav {
-      flex-direction: column;
-    }
-    .topnav a {
-      font-size: 18px;
-      padding: 16px;
-    }
-    h2 {
-      font-size: 22px;
-    }
+  @media(max-width:768px){
+    .topnav{flex-direction:column;}
+    .topnav a{font-size:18px; padding:16px;}
+    h2{font-size:22px;}
   }
 </style>
 </head>
-
 <body>
 
 <div class="topnav">
@@ -135,72 +97,50 @@
   <a onclick="showContent('hirek')" id="hirekLink">Hírek</a>
   <a onclick="showContent('vibercsoportok')" id="vibercsoportokLink">Viber csoportok</a>
   <a onclick="showContent('cardok')" id="cardokLink">Cardok</a>
-  <a onclick="openTestProtected()" id="testLink"> 5.r toube</a>
-<a onclick="openMoziProtected()" id="moziLink"> Mozi</a>
-	 <a onclick="showContent('otr')" id="otrLink">5.r</a>
-
+  <a onclick="openTestProtected()" id="testLink">5.r toube</a>
+  <a onclick="openMoziProtected()" id="moziLink">Mozi</a>
+  <a onclick="showContent('otr')" id="otrLink">5.r</a>
 </div>
 
 <div id="learazasok" class="content active">
-  <h2>Üdvözli a Caca Kft.<br>Most caca cardra 25% kedvezmény!<br>Ezért csak 3 üveg lesz januárban! </h2>
-
+  <h2>Üdvözli a Caca Kft.<br>Most caca cardra 25% kedvezmény!<br>Ezért csak 3 üveg lesz januárban!</h2>
   <div class="video-wrapper">
-    <iframe
-      src="https://marcell.qzz.io/cacaudv.mp4"
-      title="Hi!Caca"
-      frameborder="0"
-      allowfullscreen>
-    </iframe>
+    <video controls>
+      <source src="https://marcell.qzz.io/cacaudv.mp4" type="video/mp4">
+      A böngésző nem támogatja a videó lejátszást.
+    </video>
   </div>
 </div>
 
 <div id="hirek" class="content">
-  <h2>Hírek:<br>
-  Lottózó: innetl mozijegyet és valamikor nagyon jó cuccokat is lehet nyerni! <br>
-  További híreinkért olvassák el Breakingnews! újságunkat.</h2>
-
-  <p style="margin-top: 300px;">
-    A weboldal fenntartója és alkotója: Stefkó Soma és Tettamanti Marcell <br>
-    Email: tettamantimarcell@gmail.com <br>
-    Telefonszám: +36 30 790 3409 <br>
-    Üzemelteti: a Caca Kft.
-  </p>
+  <h2>Hírek:</h2>
+  <p>Lottózó: innét mozijegyet és valamikor nagyon jó cuccokat is lehet nyerni!<br>További híreinkért olvassák el Breakingnews! újságunkat.</p>
+  <p style="margin-top:50px;">Fenntartó: Stefkó Soma és Tettamanti Marcell <br>Email: tettamantimarcell@gmail.com <br>Tel.: +36 30 790 3409</p>
 </div>
 
 <div id="vibercsoportok" class="content">
   <h2>Viber csoport</h2>
   <a href="https://invite.viber.com/?g2=AQAsPNwakIHg%2BVXE9FrFTDgbD6Hs%2BC5saVTbiIJJx%2BgNaCuY955QP%2BuoN7T9veGx"
-     target="_blank"
-     style="display:inline-block; padding:15px 25px; background:#7360f2; color:white; text-decoration:none; border-radius:8px; font-size:18px; margin-top:10px;">
+     target="_blank" style="display:inline-block; padding:15px 25px; background:#7360f2; color:white; text-decoration:none; border-radius:8px; font-size:18px; margin-top:10px;">
       Csatlakozás a Viber csoporthoz
   </a>
 </div>
 
 <div id="cardok" class="content">
-  <div style="margin-top: 50px;">
-    <h2>Cacacard 3 palack/hó &nbsp;&nbsp;&nbsp; </h2>
-    <img src="caca club card.jpg" alt="caca card" width="250">
-    <img src="lotozo.jpg" alt="lottozo" width="250">
-  </div>
+  <h2>Cacacard 3 palack/hó</h2>
+  <img src="caca club card.jpg" alt="caca card" width="250">
+  <img src="lotozo.jpg" alt="lottozo" width="250">
 </div>
 
-
-	<div id="mozi" class="content">
-
-
+<div id="mozi" class="content">
   <h2>Mozi - Vásároljon jegyet online!</h2>
-
-
   <p>Itt hamarosan elérhetőek lesznek a legújabb filmek.</p>
-
-
 </div>
 
-	<div id="moziModal" class="modal">
+<div id="moziModal" class="modal">
   <div class="modal-content">
     <h2>Mozi kód</h2>
-    <input type="password" id="moziCode" placeholder="Add meg a kódot"
-      onkeydown="if(event.key === 'Enter') checkMoziCode()">
+    <input type="password" id="moziCode" placeholder="Add meg a kódot" onkeydown="if(event.key==='Enter') checkMoziCode()">
     <br><br>
     <button onclick="checkMoziCode()">Belépés</button>
     <button onclick="closeMozi()">Mégse</button>
@@ -208,176 +148,100 @@
   </div>
 </div>
 
-
 <div id="otr" class="content">
-
-
   <h2>Ez a menüpont nem elérhető!</h2>
+</div>
 
 <div id="test" class="content">
-
-
-
-
- <img
-  src="https://raw.githubusercontent.com/cacacrosoft/cacacrosoft.github.io/main/Slide2.jpg"
-  style="width:200px;"
->
-
-
+  <img src="https://raw.githubusercontent.com/cacacrosoft/cacacrosoft.github.io/main/Slide2.jpg" style="width:200px;">
   <h2>Üdvözli az 5.r toube!</h2>
-
-
   <input type="text" id="searchInput" placeholder="Keresés a videók között..." onkeyup="filterFiles()" style="padding:6px; width:50%; max-width:200px; border-radius:6px;">
-
-    <a href="https://docs.google.com/document/d/1uj66DKMbP0QW1asK968pAYhCtUSDHBqolRVgQgJKuWI/edit?usp=sharing" target="_blank" style="display:inline-block; padding:5px 10px; background:#138a0f; color:white; text-decoration:none; border-radius:8px;">Segitség</a>
-
+  <a href="https://docs.google.com/document/d/1uj66DKMbP0QW1asK968pAYhCtUSDHBqolRVgQgJKuWI/edit?usp=sharing" target="_blank" style="display:inline-block; padding:5px 10px; background:#138a0f; color:white; border-radius:8px; text-decoration:none;">Segítség</a>
   <div id="fileListContainer">
     <h3>Elérhető videók a szerveren:</h3>
     <div id="dynamicFileList">Betöltés...</div>
   </div>
 </div>
 
-
-
-
 <div id="testModal" class="modal">
   <div class="modal-content">
     <h2>Kód szükséges</h2>
-    <input type="password" id="testCode" placeholder="Írd ide!" onkeydown="if(event.key === 'Enter') checkTestCode()">
+    <input type="password" id="testCode" placeholder="Írd ide!" onkeydown="if(event.key==='Enter') checkTestCode()">
     <br><br>
-    <button onclick="checkTestCode()" style="background:#F54927; color:white; padding:10px 20px; border:none; border-radius:5px;">Ellenőrzés</button>
-    <button onclick="closeTest()">Próbálkozás késöbb</button>
+    <button onclick="checkTestCode()">Ellenőrzés</button>
+    <button onclick="closeTest()">Próbálkozás később</button>
     <p id="testError" style="color:red;"></p>
   </div>
 </div>
 
-
-
 <script>
-  const TEST_CODE = "caca123";
-  // A Cloudflare szervered címe (ügyelj a végén a per jelre)
-  const serverUrl = "https://marcell.qzz.io/";
+const TEST_CODE="caca123";
+const MOZI_CODE="caca123";
+const serverUrl="https://marcell.qzz.io/";
 
-  function showContent(sectionId) {
-    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-    document.querySelectorAll('.topnav a').forEach(l => l.classList.remove('active'));
-    document.getElementById(sectionId).classList.add('active');
-    if(document.getElementById(sectionId + 'Link')) {
-        document.getElementById(sectionId + 'Link').classList.add('active');
-    }
-  }
+function showContent(sectionId){
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.topnav a').forEach(l=>l.classList.remove('active'));
+  document.getElementById(sectionId).classList.add('active');
+  if(document.getElementById(sectionId+'Link')) document.getElementById(sectionId+'Link').classList.add('active');
+}
 
-  function openTestProtected() {
-    document.getElementById("testModal").style.display = "block";
-    setTimeout(() => { document.getElementById("testCode").focus(); }, 100);
-  }
+// 5.R TOUBE
+function openTestProtected(){ document.getElementById("testModal").style.display="block"; setTimeout(()=>document.getElementById("testCode").focus(),100);}
+function closeTest(){ document.getElementById("testModal").style.display="none"; document.getElementById("testCode").value=""; document.getElementById("testError").innerText="";}
+function checkTestCode(){
+  const input=document.getElementById("testCode").value;
+  if(input===TEST_CODE){closeTest(); showContent('test'); loadFilesFromServer();}
+  else document.getElementById("testError").innerText="Hibáskód";
+}
 
-  function closeTest() {
-    document.getElementById("testModal").style.display = "none";
-    document.getElementById("testCode").value = "";
-  }
+// MOZI
+function openMoziProtected(){document.getElementById("moziModal").style.display="block"; setTimeout(()=>document.getElementById("moziCode").focus(),100);}
+function closeMozi(){document.getElementById("moziModal").style.display="none"; document.getElementById("moziCode").value=""; document.getElementById("moziError").innerText="";}
+function checkMoziCode(){const input=document.getElementById("moziCode").value; if(input===MOZI_CODE){closeMozi(); showContent('mozi');} else document.getElementById("moziError").innerText="Hibás kód!";}
 
-  function checkTestCode() {
-    const input = document.getElementById("testCode").value;
-    if (input === TEST_CODE) {
-      closeTest();
-      showContent('test');
-      loadFilesFromServer(); // Itt hívjuk meg a listázást
-    } else {
-      document.getElementById("testError").innerText = "Hibáskód";
-    }
-  }
-
-  // Ez a függvény kéri le a fájlokat
-  async function loadFilesFromServer() {
-    const listElement = document.getElementById("dynamicFileList");
-    try {
-      const response = await fetch(serverUrl);
-      const text = await response.text();
-
-      // Egy ideiglenes elembe tesszük a HTML-t, hogy ki tudjuk nyerni a linkeket
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(text, 'text/html');
-      const links = doc.querySelectorAll('a');
-
-      listElement.innerHTML = ""; // Alaphelyzetbe állítás
-
-      let count = 0;
-      links.forEach(link => {
-        const href = link.getAttribute('href');
-        // Kiszűrjük a szülőkönyvtár és rendszer linkeket
-        if (href && !href.startsWith('?') && href !== '/' && !href.includes('apache')) 			{
-          const fullUrl = href.startsWith('http') ? href : serverUrl + href;
-          const fileName = link.innerText || href;
-
-          const a = document.createElement('a');
-          a.href = fullUrl;
-          a.className = 'file-item';
-          a.target = '_blank';
-          a.innerText = "▶️" + fileName;
-          listElement.appendChild(a);
-          count++;
-		  }
-      });
-
-      if(count === 0) listElement.innerHTML = "Nem találhatók fájlok.";
-
-    }
-catch (error) {
-  listElement.innerHTML = `
-    <div style="text-align:center;">
-      <img 
-        src="https://raw.githubusercontent.com/cacacrosoft/cacacrosoft.github.io/main/ChatGPT%20Image%202026.%20jan.%208.%2018_18_39.png"
-        alt="Szerver hiba"
-        style="max-width:250px; margin-bottom:15px;"
-      >
+// FÁJLLISTA
+async function loadFilesFromServer(){
+  const listElement=document.getElementById("dynamicFileList"); listElement.innerHTML="Betöltés...";
+  try{
+    const response=await fetch(serverUrl,{mode:'cors'});
+    const text=await response.text();
+    const parser=new DOMParser();
+    const doc=parser.parseFromString(text,'text/html');
+    const links=doc.querySelectorAll('a');
+    listElement.innerHTML="";
+    let count=0;
+    links.forEach(link=>{
+      const href=link.getAttribute('href');
+      if(href && !href.startsWith('?') && href!=='/' && !href.includes('apache')){
+        const fullUrl=href.startsWith('http')?href:serverUrl+href;
+        const fileName=link.innerText||href;
+        const a=document.createElement('a'); a.href=fullUrl; a.className='file-item'; a.target='_blank'; a.innerText='▶️ '+fileName;
+        listElement.appendChild(a); count++;
+      }
+    });
+    if(count===0) listElement.innerHTML="Nem találhatók fájlok.";
+  }catch(e){
+    listElement.innerHTML=`<div style="text-align:center;">
+      <img src="https://raw.githubusercontent.com/cacacrosoft/cacacrosoft.github.io/main/ChatGPT%20Image%202026.%20jan.%208.%2018_18_39.png" style="max-width:250px;margin-bottom:15px;">
       <p><strong>Oppssss!</strong></p>
       <p>A szerver nagy valószínűséggel nem üzemel.</p>
-      <p>Jelentsd be ezen a számon:<br><b>06 30 790 3409</b></p>
-    </div>
-  `;
-  console.error(error);
-}
-
-
-  function filterFiles() {
-    let input = document.getElementById("searchInput").value.toLowerCase();
-    let items = document.querySelectorAll(".file-item");
-    items.forEach(item => {
-      item.style.display = item.innerText.toLowerCase().includes(input) ? "block" : "none";
-    });
-  }
-
-	// ===== MOZI VÉDELEM =====
-const MOZI_CODE = "caca123";
-
-function openMoziProtected() {
-  document.getElementById("moziModal").style.display = "block";
-  setTimeout(() => {
-    document.getElementById("moziCode").focus();
-  }, 100);
-}
-
-function closeMozi() {
-  document.getElementById("moziModal").style.display = "none";
-  document.getElementById("moziCode").value = "";
-  document.getElementById("moziError").innerText = "";
-}
-
-function checkMoziCode() {
-  const input = document.getElementById("moziCode").value;
-  if (input === MOZI_CODE) {
-    closeMozi();
-    showContent('mozi');
-  } else {
-    document.getElementById("moziError").innerText = "Hibás kód!";
+      <p>Jelentsd be ezen a számon:<br><b>06 30 790 3409</b></p></div>`;
+      console.error(e);
   }
 }
 
+// KERESÉS
+function filterFiles(){
+  let input=document.getElementById("searchInput").value.toLowerCase();
+  document.querySelectorAll(".file-item").forEach(item=>item.style.display=item.innerText.toLowerCase().includes(input)?"block":"none");
+}
+
+// HÁTTÉRRE KATTINTÁS → MODAL BEZÁRÁS
+window.onclick=function(event){
+  if(event.target==document.getElementById("testModal")) closeTest();
+  if(event.target==document.getElementById("moziModal")) closeMozi();
+}
 </script>
-
-
-
 </body>
-</html>                                                  
+</html>
