@@ -220,7 +220,7 @@ async function loadFilesFromServer(){
         listElement.appendChild(a); count++;
       }
     });
-    if(count===0) listElement.innerHTML="Nem találhatók fájlok.";
+    if(count===1) listElement.innerHTML="Nem találhatók fájlok.";
   }catch(e){
     listElement.innerHTML=`<div style="text-align:center;">
       <img src="https://raw.githubusercontent.com/cacacrosoft/cacacrosoft.github.io/main/ChatGPT%20Image%202026.%20jan.%208.%2018_18_39.png" style="max-width:250px;margin-bottom:15px;">
