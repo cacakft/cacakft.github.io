@@ -220,14 +220,35 @@ async function loadFilesFromServer(){
         listElement.appendChild(a); count++;
       }
     });
-    if(count===1) listElement.innerHTML="Nem találhatók fájlok.";
-  }catch(e){
-    listElement.innerHTML=`<div style="text-align:center;">
-      <img src="https://raw.githubusercontent.com/cacacrosoft/cacacrosoft.github.io/main/ChatGPT%20Image%202026.%20jan.%208.%2018_18_39.png" style="max-width:250px;margin-bottom:15px;">
-      <p><strong>Oppssss!</strong></p>
-      <p>A szerver nagy valószínűséggel nem üzemel.</p>
-      <p>Jelentsd be ezen a számon:<br><b>06 30 790 3409</b></p></div>`;
-      console.error(e);
+   try {
+  // itt van a fájlok listázása a szerverről
+  if(count === 0) {
+    listElement.innerHTML = "Nem találhatók fájlok.";
+  } else {
+    listElement.innerHTML = files.map(f => `<li>${f.name}</li>`).join("");
+  }
+} catch(e) {
+  // Itt kerül “fizikailag” a hibaüzenet a HTML-be
+  listElement.innerHTML = `
+  <div style="
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align:center;
+    padding:20px;
+    background-color:white;
+    border-radius:10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    z-index: 1000;">
+    <img src="https://raw.githubusercontent.com/cacacrosoft/cacacrosoft.github.io/main/ChatGPT%20Image%202026.%20jan.%208.%2018_18_39.png" style="max-width:250px;margin-bottom:15px;">
+    <p><strong>Oppssss!</strong></p>
+    <p>A szerver nagy valószínűséggel nem üzemel.</p>
+    <p>Jelentsd be ezen a számon:<br><b>06 30 790 3409</b></p>
+  </div>`;
+  console.error(e);
+}
+
   }
 }
 
