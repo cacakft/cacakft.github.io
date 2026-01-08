@@ -318,10 +318,22 @@
       if(count === 0) listElement.innerHTML = "Nem találhatók fájlok.";
 
     }
-	catch (error) {
-      listElement.innerHTML = "Opssss <br> Hiba van!<br>Jelentsd be ezen a számon:06307903409";
-      console.error(error);}
-  }
+catch (error) {
+  listElement.innerHTML = `
+    <div style="text-align:center;">
+      <img 
+        src="https://raw.githubusercontent.com/cacacrosoft/cacacrosoft.github.io/main/ChatGPT%20Image%202026.%20jan.%208.%2018_18_39.png"
+        alt="Szerver hiba"
+        style="max-width:250px; margin-bottom:15px;"
+      >
+      <p><strong>Oppssss!</strong></p>
+      <p>A szerver nagy valószínűséggel nem üzemel.</p>
+      <p>Jelentsd be ezen a számon:<br><b>06 30 790 3409</b></p>
+    </div>
+  `;
+  console.error(error);
+}
+
 
   function filterFiles() {
     let input = document.getElementById("searchInput").value.toLowerCase();
