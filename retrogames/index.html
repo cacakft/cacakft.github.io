@@ -176,7 +176,7 @@ function draw() {
 
   if(snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
     clearInterval(gameInterval);
-    alert("Game! Score: " + score);
+    alert("Game Over! Score: " + score);
     document.getElementById("playOverlay").style.display = "flex";
     return;
   }
