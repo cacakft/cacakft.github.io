@@ -154,6 +154,27 @@
   font-size: 18px;
 }
 
+.ctrl-btn {
+    background-color: rgba(4, 170, 109, 0.6);
+    border: 2px solid white;
+    color: white;
+    font-size: 24px;
+    border-radius: 50%;
+    touch-action: manipulation; /* Megakadályozza a véletlen zoomolást */
+    cursor: pointer;
+}
+
+.ctrl-btn:active {
+    background-color: #04AA6D;
+}
+
+/* Csak mobilon és tableten mutassuk a gombokat, gépen felesleges */
+@media (min-width: 1024px) {
+    .mobile-controls {
+        display: none !important;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -248,12 +269,32 @@
 </div>
 
 
-  <div id="jatek" class="content">
-  <h2>Snake</h2>
-  <div class="game-info">Pontszám: <span id="scoreVal">0</span></div>
-  <canvas id="snake-canvas" width="400" height="400"></canvas>
+<div id="jatek" class="content">
+  <h2>Caca Snake</h2>
+  <div class="game-info">Score: <span id="scoreVal">0</span></div>
+
+  <div style="position: relative; width: 400px; margin: 0 auto;">
+    <canvas id="snake-canvas" width="400" height="400"></canvas>
+
+    <div class="mobile-controls" style="display: flex; flex-direction: column; align-items: center; margin-top: 15px;">
+    <button class="ctrl-btn" onclick="direction({keyCode: 38})" style="width: 60px; height: 60px; margin-bottom: 5px;">▲</button>
+    <div style="display: flex;">
+        <button class="ctrl-btn" onclick="direction({keyCode: 37})" style="width: 60px; height: 60px; margin-right: 20px;">◀</button>
+        <button class="ctrl-btn" onclick="direction({keyCode: 39})" style="width: 60px; height: 60px; margin-left: 20px;">▶</button>
+    </div>
+    <button class="ctrl-btn" onclick="direction({keyCode: 40})" style="width: 60px; height: 60px; margin-top: 5px;">▼</button>
+</div>
+
+    <div id="playOverlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center;">
+      <button onclick="startGameNow()" style="padding: 20px 40px; font-size: 30px; background: #04AA6D; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; box-shadow: 0 0 15px #04AA6D;">
+        PLAY!
+      </button>
+    </div>
+    <p style="text-align:center;">Irányítás: Nyilak a billentyűzeten</p>
+  </div>
+
   <button class="reset-btn" onclick="initSnake()">New Game</button>
-  <p style="text-align:center;">Irányítás: Nyilak a billentyűzeten</p>
+</div>
 
 
 <script>
@@ -414,6 +455,19 @@ function draw() {
         alert("Game Over Pontszámod: " + score);
     }
     snake.unshift(newHead);
+}
+function startGameNow() {
+    // Eltüntetjük a PLAY gombot
+    document.getElementById("playOverlay").style.display = "none";
+    // Elindítjuk a kígyót
+    initSnake();
+}
+
+// Módosítsuk az initSnake-et is, hogy ha vesztettél, újra megjelenjen a Play gomb
+function gameOver() {
+    clearInterval(gameInterval);
+    alert("A kígyó megdöglött! Pontszámod: " + score);
+    document.getElementById("playOverlay").style.display = "flex"; // Visszahozzuk a gombot
 }
 
 
