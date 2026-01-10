@@ -153,7 +153,7 @@
   cursor: pointer;
   font-size: 18px;
 }
-  
+
 </style>
 </head>
 <body>
@@ -163,8 +163,7 @@
   <a onclick="showContent('hirek')" id="hirekLink">Hírek</a>
   <a onclick="showContent('vibercsoportok')" id="vibercsoportokLink">Viber csoportok</a>
   <a onclick="showContent('cardok')" id="cardokLink">Cardok</a>
-  <a href="#snake" onclick="showContent('snake'); initSnake();" id="jatekLink">Snake</a>
-
+  <a onclick="showContent('jatek'); initSnake();" id="jatekLink">Snake</a>
 
   <div class="dropdown-container">
     <a onclick="toggle5rMenu()" id="otrLink">5.r ▾</a>
@@ -201,7 +200,7 @@
 
 
 
-  
+
 <div id="cardok" class="content">
   <h2>Cacacard 3 palack/hó</h2>
   <img src="caca club card.jpg" alt="caca card" width="250">
@@ -248,7 +247,6 @@
   </div>
 </div>
 
-  
 
   <div id="jatek" class="content">
   <h2>Snake</h2>
@@ -256,8 +254,8 @@
   <canvas id="snake-canvas" width="400" height="400"></canvas>
   <button class="reset-btn" onclick="initSnake()">New Game</button>
   <p style="text-align:center;">Irányítás: Nyilak a billentyűzeten</p>
-  
-  
+
+
 <script>
 const TEST_CODE="caca123";
 const MOZI_CODE="caca123";
@@ -277,9 +275,9 @@ function toggle5rMenu() {
   menu.style.display = (menu.style.display === "block") ? "none" : "block";
 }
 
-function openTestProtected(){ 
+function openTestProtected(){
   document.getElementById("menu5r").style.display = "none";
-  document.getElementById("testModal").style.display="block"; 
+  document.getElementById("testModal").style.display="block";
   setTimeout(()=>document.getElementById("testCode").focus(),100);
 }
 function closeTest(){ document.getElementById("testModal").style.display="none"; document.getElementById("testCode").value=""; document.getElementById("testError").innerText="";}
@@ -291,7 +289,7 @@ function checkTestCode(){
 
 function openMoziProtected(){
   document.getElementById("menu5r").style.display = "none";
-  document.getElementById("moziModal").style.display="block"; 
+  document.getElementById("moziModal").style.display="block";
   setTimeout(()=>document.getElementById("moziCode").focus(),100);
 }
 function closeMozi(){document.getElementById("moziModal").style.display="none"; document.getElementById("moziCode").value=""; document.getElementById("moziError").innerText="";}
@@ -416,10 +414,10 @@ function draw() {
         alert("Game Over Pontszámod: " + score);
     }
     snake.unshift(newHead);
-}                                                         
+}
 
 
-  
+
 </script>
 </body>
 </html>
