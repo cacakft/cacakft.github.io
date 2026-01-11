@@ -3,35 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Snake</title>
+<title> Snake</title>
+
+<link rel="icon" type="image/png" href="game.png">
+
 
 <style>
   body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-image: url('arizona-9839880.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-color: #333;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    /* Sötét, csillagos háttér effektus */
+    background-color: #050505;
+    background-image: radial-gradient(circle at center, #111 0%, #000 100%);
     color: white;
-    text-shadow: 1px 1px 5px black;
+    overflow-x: hidden;
   }
 
-  .topnav { display: flex; background-color: #333; }
-  .topnav a { padding: 14px 16px; text-decoration: none; color: white; cursor: pointer; }
-  .topnav a.active { background-color: #312abd; }
+  .topnav { display: flex; background-color: #111; border-bottom: 2px solid #312abd; }
+  .topnav a { padding: 14px 16px; text-decoration: none; color: #aaa; cursor: pointer; transition: 0.3s; }
+  .topnav a.active { color: #fff; text-shadow: 0 0 10px #312abd; }
 
   .content { display: none; padding: 20px; text-align: center; }
   .content.active { display: block; }
 
-  #game-wrapper { position: relative; width: 320px; margin: 20px auto; }
-  canvas { border: 4px solid #312abd; background-color: #000; display: block; box-shadow: 0 0 20px rgba(49, 42, 189, 0.5); }
+  #game-wrapper {
+    position: relative;
+    width: 320px;
+    margin: 40px auto;
+    /* Keret neon fénye */
+    box-shadow: 0 0 30px rgba(49, 42, 189, 0.4);
+  }
+
+  canvas {
+  border: 3px solid #312abd;
+  background-image: url('https://raw.githubusercontent.com/cacacrosoft/cacacrosoft.github.io/main/2c658366-303e-467e-8824-adc2671c0dca.png'),
+                    radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+  background-size: cover;
+  display: block;
+  box-shadow: 0 0 20px rgba(49, 42, 189, 0.5);
+}
 
   #playOverlay {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.9);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,25 +57,44 @@
   .play-btn {
     padding: 12px 30px;
     margin: 10px;
-    font-size: 20px;
+    font-size: 18px;
     color: white;
-    border: none;
-    border-radius: 10px;
+    border: 2px solid;
+    border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    width: 220px;
-    display: block;
+    width: 200px;
+    background: transparent;
+    transition: 0.3s;
   }
+
+  /* Egyedi neon gombok */
+  .btn-easy { border-color: #04AA6D; color: #04AA6D; }
+  .btn-easy:hover { background: #04AA6D; color: white; box-shadow: 0 0 20px #04AA6D; }
+
+  .btn-hard { border-color: #ff9800; color: #ff9800; }
+  .btn-hard:hover { background: #ff9800; color: white; box-shadow: 0 0 20px #ff9800; }
+
+  .btn-extreme { border-color: #f44336; color: #f44336; }
+  .btn-extreme:hover { background: #f44336; color: white; box-shadow: 0 0 20px #f44336; }
 
   .mobile-controls {
     margin-top: 20px;
     display: grid;
-    grid-template-columns: repeat(3, 60px);
-    gap: 10px;
+    grid-template-columns: repeat(3, 65px);
+    gap: 15px;
     justify-content: center;
   }
 
-  .ctrl-btn { width: 60px; height: 60px; background: rgba(255,255,255,0.2); border: 2px solid white; color: white; font-size: 24px; border-radius: 10px; }
+  .ctrl-btn {
+    width: 60px; height: 60px;
+    background: transparent;
+    border: 1px solid #312abd;
+    color: #312abd;
+    font-size: 24px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(49, 42, 189, 0.3);
+  }
 
   @media (min-width: 800px) { .mobile-controls { display: none; } }
 </style>
@@ -68,20 +102,22 @@
 <body>
 
 <div class="topnav">
-  <a onclick="showContent('jatek')" id="jatekLink" class="active">Snake Játék</a>
+  <a onclick="showContent('jatek')" id="jatekLink" class="active">Cacacrosoft.github.io/retrosnake</a>
 </div>
 
 <div id="jatek" class="content active">
-  <h2>Caca Snake</h2>
-  <div style="font-size: 20px; margin-bottom: 10px;">Score: <span id="scoreVal">0</span></div>
+  <h2 style="text-shadow: 0 0 15px #312abd;">CACA SNAKE</h2>
+  <div style="font-size: 20px; margin-bottom: 10px; color: #04AA6D; text-shadow: 0 0 5px #04AA6D;">
+    Score: <span id="scoreVal">0</span>
+  </div>
 
   <div id="game-wrapper">
     <canvas id="snake-canvas" width="320" height="320"></canvas>
     <div id="playOverlay">
-      <h2 style="margin-bottom: 15px;">Válassz szintet:</h2>
-      <button class="play-btn" style="background: #04AA6D;" onclick="startGameNow(160)">Easy</button>
-      <button class="play-btn" style="background: #ff9800;" onclick="startGameNow(100)">Hard</button>
-      <button class="play-btn" style="background: #f44336;" onclick="startGameNow(60)">Extreme</button>
+      <h3 style="margin-bottom: 20px; letter-spacing: 2px;">CHOOSE A LEVEL!</h3>
+      <button class="play-btn btn-easy" onclick="startGameNow(160)">EASY</button>
+      <button class="play-btn btn-hard" onclick="startGameNow(90)">HARD</button>
+      <button class="play-btn btn-extreme" onclick="startGameNow(50)">EXTREME</button>
     </div>
   </div>
 
@@ -94,14 +130,12 @@
 </div>
 
 <script>
-// 1. VÁLTOZÓK DEKLARÁLÁSA ELŐRE
 const canvas = document.getElementById("snake-canvas");
 const ctx = canvas.getContext("2d");
 const box = 16;
 let snake, food, d, score, gameInterval;
 let currentSpeed = 120;
 
-// 2. TARTALOM MEGJELENÍTÉSE
 function showContent(sectionId) {
   document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
   document.querySelectorAll('.topnav a').forEach(a => a.classList.remove('active'));
@@ -110,9 +144,7 @@ function showContent(sectionId) {
   if(sectionId !== 'jatek') clearInterval(gameInterval);
 }
 
-// 3. JÁTÉK INDÍTÁSA - EZT JAVÍTOTTAM
 function startGameNow(speed) {
-  console.log("Játék indítása, sebesség:", speed); // Segít látni, hogy fut-e a kód
   currentSpeed = speed;
   document.getElementById("playOverlay").style.display = "none";
   initSnake();
@@ -125,7 +157,6 @@ function initSnake() {
   d = "RIGHT";
   document.getElementById("scoreVal").innerText = score;
   spawnFood();
-  // Elindítjuk a ciklust
   gameInterval = setInterval(draw, currentSpeed);
 }
 
@@ -136,7 +167,6 @@ function spawnFood() {
   };
 }
 
-// Irányítás
 document.addEventListener("keydown", e => {
   if(e.keyCode == 37 && d != "RIGHT") d = "LEFT";
   else if(e.keyCode == 38 && d != "DOWN") d = "UP";
@@ -152,16 +182,39 @@ function setDir(dir) {
 }
 
 function draw() {
-  ctx.fillStyle = "black";
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Opcionális: Egy nagyon halvány, sötét réteg, hogy jobban kijöjjön a neon
+  ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+  // Innen folytatódik a rácsháló és a kígyó rajzolása...
+
+  // --- KÍGYÓ RAJZOLÁSA NEON EFFEKTEL ---
   for(let i = 0; i < snake.length; i++) {
-    ctx.fillStyle = (i == 0) ? "#04AA6D" : "white";
-    ctx.fillRect(snake[i].x, snake[i].y, box, box);
+    const isHead = (i === 0);
+    ctx.fillStyle = isHead ? "#00ffcc" : "#0088ff";
+
+    // Glow (világítás) effekt
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = isHead ? "#00ffcc" : "#0088ff";
+
+    // Kerekített test
+    ctx.fillRect(snake[i].x + 1, snake[i].y + 1, box - 2, box - 2);
   }
 
-  ctx.fillStyle = "red";
-  ctx.fillRect(food.x, food.y, box, box);
+  // --- ÉTEL RAJZOLÁSA (PIROS IZZÁS) ---
+  ctx.fillStyle = "#ff0055";
+  ctx.shadowBlur = 20;
+  ctx.shadowColor = "#ff0055";
+  // Az étel legyen kör alakú vagy kis ragyogó pont
+  ctx.beginPath();
+  ctx.arc(food.x + box/2, food.y + box/2, box/2 - 2, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Shadow reset (hogy ne lassítsa a többi műveletet)
+  ctx.shadowBlur = 0;
 
   let snakeX = snake[0].x;
   let snakeY = snake[0].y;
@@ -171,12 +224,11 @@ function draw() {
   if(d == "RIGHT") snakeX += box;
   if(d == "DOWN") snakeY += box;
 
-  // Fal vagy önmagunk ütközés vizsgálata
   let newHead = { x: snakeX, y: snakeY };
 
   if(snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
     clearInterval(gameInterval);
-    alert("Game Over! Score: " + score);
+    alert("GAME OVER! Pontszám: " + score);
     document.getElementById("playOverlay").style.display = "flex";
     return;
   }
@@ -199,7 +251,6 @@ function collision(head, array) {
   return false;
 }
 
-// Kezdéskor automatikusan mutassa a menüt
 window.onload = function() {
   showContent('jatek');
 };
