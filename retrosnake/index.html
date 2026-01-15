@@ -10,10 +10,10 @@
     margin: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
     /* Sötét, csillagos háttér effektus */
-    background-image: url('game.png');
+    background-image: url('game1.png');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;    
+    background-attachment: fixed;
     color: white;
   }
 
@@ -101,7 +101,7 @@
 </head>
 <body>
 
-<div class="topnav">  
+<div class="topnav">
   <a href="viber://forward?text=Have a look on it: https://cacacrosoft.github.io/retrosnake/">
    Share on Viber!
 </a>
@@ -146,10 +146,35 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 <!-- Google AdSense hirdetés vége -->
-  
+
 </div>
 
 <script>
+
+let audioCtx;
+
+function playEatSound() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+
+  osc.type = "square";
+  osc.frequency.value = 850;
+
+  gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.08);
+}
+
+
 const canvas = document.getElementById("snake-canvas");
 const ctx = canvas.getContext("2d");
 const box = 16;
@@ -253,13 +278,17 @@ function draw() {
     return;
   }
 
-  if(snakeX == food.x && snakeY == food.y) {
-    score++;
-    document.getElementById("scoreVal").innerText = score;
-    spawnFood();
-  } else {
-    snake.pop();
-  }
+ if(snakeX == food.x && snakeY == food.y) {
+  score++;
+  document.getElementById("scoreVal").innerText = score;
+
+  playEatSound(); // 🔊 CSAK EZ AZ ÚJ SOR
+
+  spawnFood();
+} else {
+  snake.pop();
+}
+
 
   snake.unshift(newHead);
 }
