@@ -109,7 +109,7 @@
   <!-- Ranglista Táblázat -->
   <table id="scoreboard-table">
     <thead>
-        <tr><th>MÓD</th><th>NÉV</th><th>REKORD</th></tr>
+        <tr><th>MODE</th><th>NAME</th><th>RECORD</th></tr>
     </thead>
     <tbody>
         <tr><td>Easy</td><td id="rec-easy-name">-</td><td id="rec-easy-score">0</td></tr>
@@ -267,29 +267,29 @@ async function frissitRanglistat() {
         document.getElementById('rec-extreme-name').innerText = rekordok.extreme.name;
         document.getElementById('rec-extreme-score').innerText = rekordok.extreme.score;
         return rekordok;
-    } catch (e) { 
-        console.log("Hiba a ranglista betöltésekor."); 
+    } catch (e) {
+        console.log("Error loading the leaderboard.");
     }
 }
 
 async function jatekVege(mod, elertPont) {
     // 1. Friss adatok lekérése ellenőrzés előtt
     const rekordok = await frissitRanglistat();
-    
+
     if (rekordok && elertPont > rekordok[mod].score) {
-        const nev = prompt("GRATULÁLUNK, ÚJ REKORD! Neved (max 20 betű):");
+        const nev = prompt("CONGRATULATIONS, NEW RECORD! Your name (max 20 letters):");
         if (nev) {
             try {
                 const response = await fetch(`${domain}/api/update-score`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        mode: mod, 
-                        score: elertPont, 
-                        name: nev.substring(0, 20) 
+                    body: JSON.stringify({
+                        mode: mod,
+                        score: elertPont,
+                        name: nev.substring(0, 20)
                     })
                 });
-                
+
                 if (response.ok) {
                     // 2. Késleltetett frissítés (500ms), hogy a szerver biztosan végezzen az írással
                     setTimeout(() => {
@@ -297,11 +297,11 @@ async function jatekVege(mod, elertPont) {
                     }, 500);
                 }
             } catch (err) {
-                console.error("Hálózati hiba a mentés során.");
+                console.error("Error.");
             }
         }
     } else {
-        alert("GAME OVER! Pontszám: " + elertPont);
+        alert("GAME OVER! Score: " + elertPont);
     }
 }
 
